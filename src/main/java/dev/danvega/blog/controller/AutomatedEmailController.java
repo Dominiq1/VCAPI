@@ -33,13 +33,92 @@ public class AutomatedEmailController {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("New Task!");
-        message.setFrom("dominiq@unhashlabs.io");
+        message.setFrom("construction@voltaicnow.com");
         message.setText("Hey there! You have a new task!");
 
         emailSender.send(message);
         // Return response
         return new Greeting(counter.incrementAndGet(), String.format(template, email));
     }
+
+
+
+
+//
+//    @GetMapping("/email")
+//    public Greeting sendEmail(@RequestParam String email, @RequestParam String message, @RequestParam String body) {
+//
+//      //  /email?email=user@example.com&message=New%20Task!&body=Hey%20there!%20You%20have%20a%20new%20task!
+//
+//        // Create and send email
+//        SimpleMailMessage emailMessage = new SimpleMailMessage();
+//        emailMessage.setTo(email);
+//        emailMessage.setSubject(message);
+//        emailMessage.setFrom("dominiq@unhashlabs.io");
+//        emailMessage.setText(body);
+//
+//        emailSender.send(emailMessage);
+//
+//        // Return response
+//        return new Greeting(counter.incrementAndGet(), String.format("Email sent to %s with message '%s' and body '%s'", email, message, body));
+//    }
+//
+//
+
+
+    @GetMapping("/fipassed")
+    public Greeting fiPassed(@RequestParam String HomeAddress, @RequestParam String HomeOwnerName,@RequestParam String HomeownerEmail ) {
+
+        String subject = "Final Inspection just passed!";
+        String body = "Final Inspection just passed for " +HomeOwnerName + " \nHomeAddress:  "+ HomeAddress;
+        // Create and send email
+        SimpleMailMessage emailMessage = new SimpleMailMessage();
+//        emailMessage.setTo("alyssaosborne@voltaicnow.com");
+        emailMessage.setTo("dominiqmartinez@voltaicnow.com");
+        emailMessage.setSubject(subject);
+        emailMessage.setFrom("construction@voltaicnow.com");
+        emailMessage.setText(body);
+
+        emailSender.send(emailMessage);
+
+        //Can then send email to homeowner
+
+        // Return response
+        return new Greeting(counter.incrementAndGet(), String.format("FI Passed Automated Emails sent to %s with message '%s' and body '%s'", "dominiq", subject, body));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 //

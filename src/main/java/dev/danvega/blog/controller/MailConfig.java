@@ -26,17 +26,25 @@ public class MailConfig {
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.porkbun.com");
+//        mailSender.setHost("smtp.porkbun.com");
+        mailSender.setHost("smtp.gmail.com");
+//        mailSender.setPort(587);
         mailSender.setPort(587);
 
-        mailSender.setUsername("Dominiq@unhashlabs.io");
-        mailSender.setPassword("Chinoman11");
+//        mailSender.setUsername("Dominiq@unhashlabs.io");
+        mailSender.setUsername("Construction@voltaicnow.com");
+        mailSender.setPassword("Voltaicconstruction2022!");
 
         Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.smtp.host", "smtp.porkbun.com");
+        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
+
+//        props.put("mail.smtp.host", "smtp.porkbun.com");
+//        props.put("mail.smtp.port", "587");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
 
 
         return mailSender;
