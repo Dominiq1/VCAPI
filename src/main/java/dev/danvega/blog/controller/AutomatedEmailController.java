@@ -6,12 +6,10 @@ import  org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 @RestController
@@ -66,14 +64,20 @@ public class AutomatedEmailController {
 //
 
 
-    @GetMapping("/fipassed")
-    public Greeting fiPassed(@RequestParam String HomeAddress, @RequestParam String HomeOwnerName,@RequestParam String HomeownerEmail ) {
+
+
+    @PostMapping("/fipassed")
+    public Greeting fiPassed(@RequestBody Map<String, String> request) {
+
+        String HomeAddress = request.get("HomeAddress");
+        String HomeOwnerName = request.get("HomeOwnerName");
+        String HomeownerEmail = request.get("HomeownerEmail");
 
         String subject = "Final Inspection just passed!";
         String body = "Final Inspection just passed for " +HomeOwnerName + " \nHomeAddress:  "+ HomeAddress;
+
         // Create and send email
         SimpleMailMessage emailMessage = new SimpleMailMessage();
-//        emailMessage.setTo("alyssaosborne@voltaicnow.com");
         emailMessage.setTo("dominiqmartinez@voltaicnow.com");
         emailMessage.setSubject(subject);
         emailMessage.setFrom("construction@voltaicnow.com");
@@ -86,6 +90,38 @@ public class AutomatedEmailController {
         // Return response
         return new Greeting(counter.incrementAndGet(), String.format("FI Passed Automated Emails sent to %s with message '%s' and body '%s'", "dominiq", subject, body));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+//    @GetMapping("/fipassed")
+//    public Greeting fiPassed(@RequestParam String HomeAddress, @RequestParam String HomeOwnerName,@RequestParam String HomeownerEmail ) {
+//
+//        String subject = "Final Inspection just passed!";
+//        String body = "Final Inspection just passed for " +HomeOwnerName + " \nHomeAddress:  "+ HomeAddress;
+//        // Create and send email
+//        SimpleMailMessage emailMessage = new SimpleMailMessage();
+////        emailMessage.setTo("alyssaosborne@voltaicnow.com");
+//        emailMessage.setTo("dominiqmartinez@voltaicnow.com");
+//        emailMessage.setSubject(subject);
+//        emailMessage.setFrom("construction@voltaicnow.com");
+//        emailMessage.setText(body);
+//
+//        emailSender.send(emailMessage);
+//
+//        //Can then send email to homeowner
+//
+//        // Return response
+//        return new Greeting(counter.incrementAndGet(), String.format("FI Passed Automated Emails sent to %s with message '%s' and body '%s'", "dominiq", subject, body));
+//    }
 
 
 
