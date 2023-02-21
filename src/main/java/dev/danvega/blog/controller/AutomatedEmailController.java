@@ -74,11 +74,12 @@ public class AutomatedEmailController {
         String HomeownerEmail = request.get("HomeownerEmail");
 
         String subject = "Final Inspection just passed!";
-        String body = "Final Inspection just passed for " +HomeOwnerName + " \nHomeAddress:  "+ HomeAddress;
+        String body = "Final Inspection just passed for " + HomeOwnerName + " \n\n At Home Address: "+ HomeAddress +"\n\nHomeowner email: " + HomeownerEmail;
+
 
         // Create and send email
         SimpleMailMessage emailMessage = new SimpleMailMessage();
-        emailMessage.setTo("dominiqmartinez@voltaicnow.com");
+        emailMessage.setTo("alyssaosborne@voltaicnow.com");
         emailMessage.setSubject(subject);
         emailMessage.setFrom("construction@voltaicnow.com");
         emailMessage.setText(body);
