@@ -93,6 +93,30 @@ public class AutomatedEmailController {
     }
 
 
+    @PostMapping("/permitsubmitted1week")
+    public Greeting permitsubmitted1week(@RequestBody Map<String, String> request) {
+
+        String HomeAddress = request.get("HomeAddress");
+        String HomeOwnerName = request.get("HomeOwnerName");
+        String HomeownerEmail = request.get("HomeownerEmail");
+
+        String subject = "It's been 1 week since permit has been submitted!";
+        String body = "Permit submitted for " + HomeOwnerName + " \n\n At Home Address: "+ HomeAddress +"\n\nHomeowner email: " + HomeownerEmail;
+
+        // Create and send email
+        SimpleMailMessage emailMessage = new SimpleMailMessage();
+        emailMessage.setTo("dominiqmartinez@voltaicnow.com");
+        emailMessage.setSubject(subject);
+        emailMessage.setFrom("construction@voltaicnow.com");
+        emailMessage.setText(body);
+
+        emailSender.send(emailMessage);
+
+        //Can then send email to homeowner
+
+        // Return response
+        return new Greeting(counter.incrementAndGet(), String.format("FI Passed Automated Emails sent to %s with message '%s' and body '%s'", "dominiq", subject, body));
+    }
 
 
 
