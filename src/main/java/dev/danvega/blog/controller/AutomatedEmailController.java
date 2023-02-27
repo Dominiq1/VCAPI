@@ -566,7 +566,8 @@ public class AutomatedEmailController {
               "</h1><br><p>At Home Address: "+
                 homeAddress +
 
-                "</p><p>Project Link: <a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid="+RecordAddress+"&rl=nvq\">Link 1</a></p><img src=\"https://firebasestorage.googleapis.com/v0/b/voltaicconstruction.appspot.com/o/VC.png?alt=media&amp;token=58122a6a-bed0-4344-875b-8f3a1b4822ad\" alt=\"Voltaic Construction\" style=\"width: 100px; height: auto;\"/></body>";
+                "<p>QB Project Link: <a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + RecordAddress + "&rl=nvq\">" + RecordAddress + "</a></p>";
+//                "</p><p>Project Link: <a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid="+RecordAddress+"&rl=nvq\">Link 1</a></p><img src=\"https://firebasestorage.googleapis.com/v0/b/voltaicconstruction.appspot.com/o/VC.png?alt=media&amp;token=58122a6a-bed0-4344-875b-8f3a1b4822ad\" alt=\"Voltaic Construction\" style=\"width: 100px; height: auto;\"/></body>";
 
         // Create and send email
         MimeMessage message = emailSender.createMimeMessage();
