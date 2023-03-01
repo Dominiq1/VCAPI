@@ -189,15 +189,33 @@ public class AutomatedEmailController {
         String subject = "Solar permit(s) submitted 1 week ago or more with out response:  " + formattedDate + " !";
 
 
-        String body = "<body><h1>Here is the active list of Solar Permits submitted 7 days ago or more without response.  " +
-                "</h1><br><p>Take action below.</p>";
+        String body = "<body><h1>Here is the active list of Solar permit(s) submitted 1 week ago or more with out response</h1>" +
+                "<table style=\"border-collapse: collapse;\">" +
+                "<thead>" +
+                "<tr style=\"border: 1px solid black;\">" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">Project Record ID</th>" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">Address</th>" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">AHJ</th>" +
+                "</tr>" +
+                "</thead>" +
+                "<tbody>";
 
         for (String projectRecordID : ProjectsWithMeterSpotsReq10DaysPlus) {
-            body += "<p>QB Project Link: <a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + projectRecordID + "&rl=nvq\">" + projectRecordID + "</a></p>";
+            VoltaicProject project = VOLTAICPROJECTS.stream().filter(p -> p.getProjectRecordID().equals(projectRecordID)).findFirst().orElse(null);
+            if (project != null) {
+                body += "<tr style=\"border: 1px solid black;\">" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\"><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + project.getProjectRecordID() + "&rl=nvq\">" + project.getProjectRecordID() + "</a></td>" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAddress() + "</td>" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAHJ() + "</td>" +
+                        "</tr>";
+            }
         }
 
-        body += "<img src=\"https://firebasestorage.googleapis.com/v0/b/voltaicconstruction.appspot.com/o/VC.png?alt=media&amp;token=58122a6a-bed0-4344-875b-8f3a1b4822ad\" alt=\"Voltaic Construction\" style=\"width: 100px; height: auto;\"/></body>";
-
+        body += "</tbody>" +
+                "</table>" +
+                "<br>" +
+                "<img src=\"https://firebasestorage.googleapis.com/v0/b/voltaicconstruction.appspot.com/o/VC.png?alt=media&amp;token=58122a6a-bed0-4344-875b-8f3a1b4822ad\" alt=\"Voltaic Construction\" style=\"width: 100px; height: auto;\"/>" +
+                "</body>";
 //        String body = "<body><h1>Here is the active list of Meter Spots requested 10 days ago or more.  " +
 //                homeOwnerName + "</h1><br><p>Take action below. "+
 //
@@ -211,6 +229,7 @@ public class AutomatedEmailController {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 //            helper.setTo(homeOwnerEmail);
             helper.setTo("Jessmathieu@voltaicnow.com ");
+       //     helper.setTo("dominiqmartinez@voltaicnow.com ");
             helper.setSubject(subject);
             helper.setText(body, true);
             helper.setFrom("construction@voltaicnow.com");
@@ -341,14 +360,33 @@ public class AutomatedEmailController {
         String subject = "Overdue Meter Spots! " + formattedDate + " !";
 
 
-        String body = "<body><h1>Here is the active list of Meter Spots requested 10 days ago or more.  " +
-                "</h1><br><p>Take action below.</p>";
+        String body = "<body><h1>Here is the active list of Meter Spots requested 10 days ago or more.</h1>" +
+                "<table style=\"border-collapse: collapse;\">" +
+                "<thead>" +
+                "<tr style=\"border: 1px solid black;\">" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">Project Record ID</th>" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">Address</th>" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">AHJ</th>" +
+                "</tr>" +
+                "</thead>" +
+                "<tbody>";
 
         for (String projectRecordID : ProjectsWithMeterSpotsReq10DaysPlus) {
-            body += "<p>QB Project Link: <a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + projectRecordID + "&rl=nvq\">" + projectRecordID + "</a></p>";
+            VoltaicProject project = VOLTAICPROJECTS.stream().filter(p -> p.getProjectRecordID().equals(projectRecordID)).findFirst().orElse(null);
+            if (project != null) {
+                body += "<tr style=\"border: 1px solid black;\">" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\"><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + project.getProjectRecordID() + "&rl=nvq\">" + project.getProjectRecordID() + "</a></td>" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAddress() + "</td>" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAHJ() + "</td>" +
+                        "</tr>";
+            }
         }
 
-        body += "<img src=\"https://firebasestorage.googleapis.com/v0/b/voltaicconstruction.appspot.com/o/VC.png?alt=media&amp;token=58122a6a-bed0-4344-875b-8f3a1b4822ad\" alt=\"Voltaic Construction\" style=\"width: 100px; height: auto;\"/></body>";
+        body += "</tbody>" +
+                "</table>" +
+                "<br>" +
+                "<img src=\"https://firebasestorage.googleapis.com/v0/b/voltaicconstruction.appspot.com/o/VC.png?alt=media&amp;token=58122a6a-bed0-4344-875b-8f3a1b4822ad\" alt=\"Voltaic Construction\" style=\"width: 100px; height: auto;\"/>" +
+                "</body>";
 
 //        String body = "<body><h1>Here is the active list of Meter Spots requested 10 days ago or more.  " +
 //                homeOwnerName + "</h1><br><p>Take action below. "+
@@ -363,6 +401,7 @@ public class AutomatedEmailController {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 //            helper.setTo(homeOwnerEmail);
             helper.setTo("alyssaosborne@voltaicnow.com");
+    //        helper.setTo("dominiqmartinez@voltaicnow.com");
             helper.setSubject(subject);
             helper.setText(body, true);
             helper.setFrom("construction@voltaicnow.com");
@@ -559,15 +598,30 @@ public class AutomatedEmailController {
         String formattedDate = currentDate.format(formatter);
 
         String homeAddress = request.get("HomeAddress");
+        String homeOwnerName = request.get("HomeOwnerName");
         String RecordAddress = request.get("RecordID");
 
         String subject = "Final Inspection passed on " + formattedDate + " !";
-        String body = "<body><h1>Final Inspection just passed!" +
-              "</h1><br><p>At Home Address: "+
-                homeAddress +
+        String body = "<body><h1>Final Inspection just passed!</h1>" +
+                "<table style=\"border-collapse: collapse;\">" +
+                "<thead>" +
+                "<tr style=\"border: 1px solid black;\">" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">Name</th>" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">Address</th>" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">FI Passed Date</th>" +
+                "</tr>" +
+                "</thead>" +
+                "<tbody>" +
+                "<tr style=\"border: 1px solid black;\">" +
+                "<td style=\"border: 1px solid black; padding: 5px;\">" +"<p><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + RecordAddress + "&rl=nvq\">" + homeOwnerName + "</a></p>" +
+                 "</td>" +
+                "<td style=\"border: 1px solid black; padding: 5px;\">"+ homeAddress+"</td>" +
+                "<td style=\"border: 1px solid black; padding: 5px;\">"+formattedDate+"</td>" +
+                "</tr>" +
+                "</tbody>" +
+                "</table></body>";
 
-                "<p>QB Project Link: <a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + RecordAddress + "&rl=nvq\">" + RecordAddress + "</a></p>";
-//                "</p><p>Project Link: <a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid="+RecordAddress+"&rl=nvq\">Link 1</a></p><img src=\"https://firebasestorage.googleapis.com/v0/b/voltaicconstruction.appspot.com/o/VC.png?alt=media&amp;token=58122a6a-bed0-4344-875b-8f3a1b4822ad\" alt=\"Voltaic Construction\" style=\"width: 100px; height: auto;\"/></body>";
+
 
         // Create and send email
         MimeMessage message = emailSender.createMimeMessage();
@@ -575,6 +629,7 @@ public class AutomatedEmailController {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 //            helper.setTo(homeOwnerEmail);
             helper.setTo("alyssaosborne@voltaicnow.com");
+  //          helper.setTo("dominiqmartinez@voltaicnow.com");
             helper.setSubject(subject);
             helper.setText(body, true);
             helper.setFrom("construction@voltaicnow.com");
