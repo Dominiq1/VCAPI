@@ -349,9 +349,11 @@ public class QBApi {
                             break;
                         case "93":
                             System.out.println("Address: Street:   " + value);
+                            Project.setAddress(value);
                             break;
                         case "95":
                             System.out.println("Address City:   " + value);
+                            Project.setAddress(value);
 
                             break;
                         case "719":

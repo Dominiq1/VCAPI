@@ -171,6 +171,11 @@ public class VoltaicProject {
     public void setAHJ(String AHJ) {
         this.AHJ = AHJ;
     }
+
+
+    public void setAddress(String Address) {
+        this.address = Address;
+    }
     public String getCheckMPU() {
         return checkMPU;
     }
