@@ -204,7 +204,7 @@ public class AutomatedEmailController {
             VoltaicProject project = VOLTAICPROJECTS.stream().filter(p -> p.getProjectRecordID().equals(projectRecordID)).findFirst().orElse(null);
             if (project != null) {
                 body += "<tr style=\"border: 1px solid black;\">" +
-                        "<td style=\"border: 1px solid black; padding: 5px;\"><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + project.getProjectRecordID() + "&rl=nvq\">" + project.getProjectRecordID() + "</a></td>" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\"><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + project.getProjectRecordID() + "&rl=nvq\">" + project.getHomeownerName() + "</a></td>" +
                         "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAddress() + "</td>" +
                         "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAHJ() + "</td>" +
                         "</tr>";
@@ -375,7 +375,7 @@ public class AutomatedEmailController {
             VoltaicProject project = VOLTAICPROJECTS.stream().filter(p -> p.getProjectRecordID().equals(projectRecordID)).findFirst().orElse(null);
             if (project != null) {
                 body += "<tr style=\"border: 1px solid black;\">" +
-                        "<td style=\"border: 1px solid black; padding: 5px;\"><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + project.getProjectRecordID() + "&rl=nvq\">" + project.getProjectRecordID() + "</a></td>" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\"><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + project.getProjectRecordID() + "&rl=nvq\">" + project.getHomeownerName() + "</a></td>" +
                         "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAddress() + "</td>" +
                         "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAHJ() + "</td>" +
                         "</tr>";
