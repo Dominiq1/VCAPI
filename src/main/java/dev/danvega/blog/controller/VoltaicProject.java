@@ -165,6 +165,11 @@ public class VoltaicProject {
 
 
 
+
+    public void setHomeownerName(String HomeownerName) {
+        this.HomeownerName = HomeownerName;
+    }
+
     public String getAHJ() {
         return AHJ;
     }

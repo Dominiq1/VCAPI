@@ -340,12 +340,13 @@ public class QBApi {
 
                     switch (ReportIDs.get(j)) {
                         case "3":
-                            System.out.println("Homeowner 1:   " + value);
+                            System.out.println("Record ID:   " + value);
                             Project.setProjectRecordID(value);
                             break;
 
                         case "105":
                             System.out.println("Homeowner 1:   " + value);
+                            Project.setHomeownerName(value);
                             break;
                         case "93":
                             System.out.println("Address: Street:   " + value);
