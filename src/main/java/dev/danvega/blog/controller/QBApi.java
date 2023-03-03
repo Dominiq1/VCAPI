@@ -436,6 +436,7 @@ public class QBApi {
                             break;
                         case "1657":
                             System.out.println("Solar Permit Submitted Date:     " + value);
+                            Project.setSolarPermitSubmitDate(value);
                             break;
 
                         case "1656":

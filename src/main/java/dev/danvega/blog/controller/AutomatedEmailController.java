@@ -194,7 +194,7 @@ public class AutomatedEmailController {
                 "<thead>" +
                 "<tr style=\"border: 1px solid black;\">" +
                 "<th style=\"border: 1px solid black; padding: 5px;\">Project Record ID</th>" +
-                "<th style=\"border: 1px solid black; padding: 5px;\">Address</th>" +
+                "<th style=\"border: 1px solid black; padding: 5px;\">Permit Submit Date</th>" +
                 "<th style=\"border: 1px solid black; padding: 5px;\">AHJ</th>" +
                 "</tr>" +
                 "</thead>" +
@@ -205,7 +205,7 @@ public class AutomatedEmailController {
             if (project != null) {
                 body += "<tr style=\"border: 1px solid black;\">" +
                         "<td style=\"border: 1px solid black; padding: 5px;\"><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + project.getProjectRecordID() + "&rl=nvq\">" + project.getHomeownerName() + "</a></td>" +
-                        "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAddress() + "</td>" +
+                        "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getSolarPermitSubmitDate().toString() + "</td>" +
                         "<td style=\"border: 1px solid black; padding: 5px;\">" + project.getAHJ() + "</td>" +
                         "</tr>";
             }

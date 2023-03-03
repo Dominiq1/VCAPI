@@ -12,7 +12,6 @@ public class VoltaicProject {
 
     private String address;
     private String HomeownerName;
-
     private String ProjectRecordID;
 
     private String AHJ;
@@ -20,6 +19,11 @@ public class VoltaicProject {
     private String checkMPU;
 
     private  String checkSolarPermit;
+
+    //STATUS DATE VALUES
+
+    private String solarPermitSubmitDate;
+
 
 
 
@@ -203,6 +207,17 @@ public class VoltaicProject {
 
 
 
+
+
+//DATE VALUE FUNCTIONS
+
+        public String getSolarPermitSubmitDate() {
+            return solarPermitSubmitDate;
+        }
+
+        public void setSolarPermitSubmitDate(String solarPermitSubmitDate) {
+            this.solarPermitSubmitDate = solarPermitSubmitDate;
+        }
 
 
 
