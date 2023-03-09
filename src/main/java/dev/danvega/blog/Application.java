@@ -31,8 +31,6 @@ import java.util.Map;
 @SpringBootApplication
 public class  Application{
 
-
-
 	/// ================= REPORT  QUERY PAIRS =================
 
 	//  JESS : ========>>>

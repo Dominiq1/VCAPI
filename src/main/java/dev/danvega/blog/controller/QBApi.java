@@ -1,8 +1,6 @@
 package dev.danvega.blog.controller;
-
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -260,6 +258,7 @@ public class QBApi {
                // System.out.println(item);
 
                 //Stage
+
                 String stage = item.get("599").getAsJsonObject().get("value").toString();
                    String recordId = item.get("3").getAsJsonObject().get("value").toString();
 //                String Address = item.get("92").getAsJsonObject().get("value").toString();

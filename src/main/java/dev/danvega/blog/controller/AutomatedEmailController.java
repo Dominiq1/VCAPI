@@ -26,6 +26,11 @@ public class AutomatedEmailController {
     private static final String Post_Pull_Voltaic_Report = "https://api.quickbase.com/v1/reports/321/run?tableId=br5cqr4r3";
 
 
+
+
+    private static final String Get_Project_Report = "https://api.quickbase.com/v1/reports/360?tableId=br5cqr4r3";
+    private static final String Post_Pull_Project_Report = "https://api.quickbase.com/v1/reports/360/run?tableId=br5cqr4r3";
+
     private static final String Get_Vitals_Report = "https://api.quickbase.com/v1/reports/321?tableId=br5cqr4r3";
     private static final String Post_Pull_Vitals_Report = "https://api.quickbase.com/v1/reports/321/run?tableId=br5cqr4r3";
 
@@ -53,6 +58,177 @@ public class AutomatedEmailController {
         // Return response
         return new Greeting(counter.incrementAndGet(), String.format(template, email));
     }
+
+
+
+
+
+
+
+
+
+    @PostMapping("/newProjectCheck")
+    public Greeting newProjectCheck(@RequestBody Map<String, String> request) {
+
+        int i = 0;
+        ArrayList<String> ProjectsWithMeterSpotsReq10DaysPlus = new ArrayList<>();
+
+
+        String AHJ = request.get("AHJ");
+        String HomeAddress = request.get("HomeAddress");
+        String RecordAddress = request.get("RecordAddress");
+        String HomeOwnerName = request.get("HomeOwnerName");
+
+//        Map<String, Double> DURATION = new HashMap<>();
+        ArrayList<VoltaicProject> VOLTAICPROJECTS = new ArrayList<>();
+
+        ArrayList<Double> DURATIONREPORT = new ArrayList<>();
+        ArrayList<String> DURATIONNAMES = new ArrayList<>();
+
+       Boolean isNewAHJ = false;
+
+        try{
+            QBApi QBAPI =  new QBApi();
+
+            //Run Quickbase logic and get data
+            ArrayList<String> DURATIONReportFields =  QBAPI.getAppTables(Get_Vitals_Report);
+            VOLTAICPROJECTS  = QBAPI.PipelineDuration(Post_Pull_Vitals_Report, DURATIONReportFields);
+            ArrayList<String> projectAHJs = new ArrayList<>();
+
+            
+            // SEARCH PROEJCTS
+            System.out.println("Searching Projects...");
+
+            for (VoltaicProject project : VOLTAICPROJECTS) {
+                String projectRecrodID = project.getProjectRecordID();
+                String ProjectAHJ = project.getAHJ();
+                String ProjectAddress = project.getAddress();
+                String SolarStatus = project.getCheckSolarPermit();
+                projectAHJs.add(ProjectAHJ);
+
+                System.out.println(ProjectAHJ);
+
+            }
+
+                //CHECK IF KNOWN AHJ LIST CONTAINS THE NEW AHJ
+                if (projectAHJs.contains("\""+AHJ+"\"")) {
+                    //IF SO SEND EMAIL WITH PROJECT DETAILS
+                    System.out.println("No new AHJ!");
+                }else {
+                    System.out.println("New AHJ!");
+                    isNewAHJ = true;
+                }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if ( isNewAHJ){
+
+
+            LocalDate currentDate = LocalDate.now();
+
+// Format the date as desired
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            String formattedDate = currentDate.format(formatter);
+
+            String subject = "New AHJ " + formattedDate + " !";
+
+            String body = "<body><h1>New project in a new Jurisdiction!</h1>" +
+                    "<table style=\"border-collapse: collapse;\">" +
+                    "<thead>" +
+                    "<tr style=\"border: 1px solid black;\">" +
+                    "<th style=\"border: 1px solid black; padding: 5px;\">Name</th>" +
+                    "<th style=\"border: 1px solid black; padding: 5px;\">Address</th>" +
+                    "<th style=\"border: 1px solid black; padding: 5px; background-color: yellow;\">AHJ</th>" +
+                    "</tr>" +
+                    "</thead>" +
+                    "<tbody>" +
+                    "<tr style=\"border: 1px solid black;\">" +
+                    "<td style=\"border: 1px solid black; padding: 5px;\"><p><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + RecordAddress + "&rl=nvq\">" + HomeOwnerName + "</a></p></td>" +
+                    "<td style=\"border: 1px solid black; padding: 5px;\">"+ HomeAddress+"</td>" +
+                    "<td style=\"border: 1px solid black; padding: 5px; background-color: yellow;\">"+AHJ+"</td>" +
+                    "</tr>" +
+                    "</tbody>" +
+                    "</table></body>";
+
+//            String body = "<body><h1>New project in a new Jurisdiction!</h1>" +
+//                    "<table style=\"border-collapse: collapse;\">" +
+//                    "<thead>" +
+//                    "<tr style=\"border: 1px solid black;\">" +
+//                    "<th style=\"border: 1px solid black; padding: 5px;\">Name</th>" +
+//                    "<th style=\"border: 1px solid black; padding: 5px;\">Address</th>" +
+//                    "<th style=\"border: 1px solid black; padding: 5px;\">AHJ</th>" +
+//                    "</tr>" +
+//                    "</thead>" +
+//                    "<tbody>" +
+//                    "<tr style=\"border: 1px solid black;\">" +
+//                    "<td style=\"border: 1px solid black; padding: 5px;\">" +"<p><a href=\"https://solarcrm.quickbase.com/db/br5cqr4r3?a=er&rid=" + RecordAddress + "&rl=nvq\">" + HomeOwnerName + "</a></p>" +
+//                    "</td>" +
+//                    "<td style=\"border: 1px solid black; padding: 5px;\">"+ HomeAddress+"</td>" +
+//                    "<td style=\"border: 1px solid black; padding: 5px;\">"+AHJ+"</td>" +
+//                    "</tr>" +
+//                    "</tbody>" +
+//                    "</table></body>";
+
+
+
+            // Create and send email
+            MimeMessage message = emailSender.createMimeMessage();
+            try {
+                MimeMessageHelper helper = new MimeMessageHelper(message, true);
+//            helper.setTo(homeOwnerEmail);
+                helper.setTo("dominiqmartinez@voltaicnow.com");
+                //          helper.setTo("dominiqmartinez@voltaicnow.com");
+                helper.setSubject(subject);
+                helper.setText(body, true);
+                helper.setFrom("construction@voltaicnow.com");
+
+//            // Add corporate logo to the email
+//            ClassPathResource resource = new ClassPathResource("static/images/VC.png");
+//            helper.addInline("VC.png", resource);
+
+
+                emailSender.send(message);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                return new Greeting(counter.incrementAndGet(), "Failed to send email.");
+            }
+
+
+        }else {
+            System.out.println("No new AHJ");
+
+        }
+
+
+
+        // Return response
+        return new Greeting(counter.incrementAndGet(), String.format("New Project Cleared!"));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
