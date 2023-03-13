@@ -405,7 +405,7 @@ public class AutomatedEmailController {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 //            helper.setTo(homeOwnerEmail);
             helper.setTo("Jessmathieu@voltaicnow.com ");
-       //     helper.setTo("dominiqmartinez@voltaicnow.com ");
+ //           helper.setTo("dominiqmartinez@voltaicnow.com ");
             helper.setSubject(subject);
             helper.setText(body, true);
             helper.setFrom("construction@voltaicnow.com");
